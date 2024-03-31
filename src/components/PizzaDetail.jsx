@@ -30,18 +30,18 @@ const PizzaDetail = () => {
             </Card.Title>
           </Card.Body>
           <ListGroup className="list-group-flush p-3 text-center card-ingredients-bg">
-            <Card.Text className="text-start">
+            <Card.Text className="text-start ingredients-text">
               <strong>Ingredientes:</strong>
             </Card.Text>
             {pizza.ingredients.map((ingredient, index) => (
-              <Card.Text key={index} className="d-flex flex-wrap">
+              <Card.Text key={index} className="d-flex flex-wrap ingredients-text">
                 🍕{ingredient}
               </Card.Text>
             ))}
-            <Card.Text className="text-start">
+            <Card.Text className="text-start ingredients-text">
               <strong>Descripción:</strong>
             </Card.Text>
-            <Card.Text className="text-start">{pizza.desc}</Card.Text>
+            <Card.Text className="text-start ingredients-desc">{pizza.desc}</Card.Text>
           </ListGroup>
           <Card.Body className="text-center">
             <Card.Text className="price">${pizza.price}</Card.Text>

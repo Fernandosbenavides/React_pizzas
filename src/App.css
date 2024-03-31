@@ -41,7 +41,7 @@ body {
 }
 
 .card-title-bg {
-  background-color: red;
+  background-color: rgb(210, 7, 7);
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -52,8 +52,11 @@ body {
 
 .ingredients-text {
   font-size: 20px;
+  text-transform: capitalize;
 }
-
+.ingredients-desc {
+  font-size: 18px;
+}
 .card-bg {
   background-color: darkgreen;
   border-width: 3px;

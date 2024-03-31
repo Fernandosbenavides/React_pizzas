@@ -4,8 +4,7 @@ import { PizzaContext } from "../context/PizzaContext";
 import Swal from "sweetalert2";
 
 const Cart = () => {
-  const { cart, removeFromCart, getTotalPrice, setCart } =
-    useContext(PizzaContext);
+  const { cart, removeFromCart, getTotalPrice, setCart } = useContext(PizzaContext);
 
   const handleEmptyCart = () => {
     setCart([]);
@@ -40,6 +39,9 @@ const Cart = () => {
     );
     setCart(updatedCart);
   };
+  const calculateSubtotal = (price, quantity) => {
+    return price * quantity;
+  };
 
   return (
     <Container className="cart-view">
@@ -52,41 +54,23 @@ const Cart = () => {
       ) : (
         <div>
           {cart.map((item) => (
-            <Card key={item.id} className="cart-card m-5">
+            <Card key={item.id} className="cart-card m-5 p-2">
               <Row className="align-items-center">
                 <Col xs={3}>
                   <Card.Img src={item.img} alt={item.name} />
                 </Col>
                 <Col xs={6}>
                   <Card.Title>{item.name}</Card.Title>
-                  <Card.Text>Precio: ${item.price}</Card.Text>
-                  <Button
-                    variant="danger"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    Eliminar
-                  </Button>
+                  <Card.Text><strong>Precio:</strong> ${item.price}</Card.Text>
+                  <Card.Text><strong>Subtotal:</strong> ${calculateSubtotal(item.price, item.quantity)}</Card.Text>
+                  <Button variant="danger" onClick={() => removeFromCart(item.id)}>Eliminar</Button>
                 </Col>
                 <Col xs={3}>
                   <ListGroup>
                     <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => decrementQuantity(item.id)}
-                        style={{ padding: "0.25rem 0.5rem" }}
-                      >
-                        -
-                      </Button>
-                      <span style={{ padding: "0.25rem 0.5rem" }}>
-                        {item.quantity}
-                      </span>
-                      <Button
-                        variant="outline-success"
-                        onClick={() => incrementQuantity(item.id)}
-                        style={{ padding: "0.25rem 0.5rem" }}
-                      >
-                        +
-                      </Button>
+                      <Button variant="outline-danger" onClick={() => decrementQuantity(item.id)} style={{ padding: "0.25rem 0.5rem" }}>-</Button>
+                      <span style={{ padding: "0.25rem 0.5rem" }}>{item.quantity}</span>
+                      <Button variant="outline-success" onClick={() => incrementQuantity(item.id)} style={{ padding: "0.25rem 0.5rem" }}>+</Button>
                     </ListGroup.Item>
                   </ListGroup>
                 </Col>
@@ -95,25 +79,13 @@ const Cart = () => {
           ))}
           <Row className="justify-content-between">
             <Col xs={4}>
-              <Button
-                className="p-4"
-                variant="danger"
-                onClick={handleEmptyCart}
-              >
-                🗑️ Vaciar Carrito
-              </Button>
+              <Button className="p-4" variant="danger" onClick={handleEmptyCart}>🗑️ Vaciar Carrito</Button>
             </Col>
             <Col xs={4}>
               <h3 className="cart-total">Total: ${getTotalPrice()}</h3>
             </Col>
             <Col xs={4}>
-              <Button
-                className="p-4"
-                variant="success"
-                onClick={handleCheckout}
-              >
-                ✅ Finalizar Compra
-              </Button>
+              <Button className="p-4" variant="success" onClick={handleCheckout}>✅ Finalizar Compra</Button>
             </Col>
           </Row>
         </div>
